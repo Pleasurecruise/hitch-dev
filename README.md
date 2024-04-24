@@ -22,11 +22,13 @@
 
 ## 效果展示
 
-[修改密码](http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-24-114602-170x300.png)
+![修改密码](http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-24-114602-170x300.png)
 
-[车牌智能识别](http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-23-131318-300x170.png)
+![车牌智能识别](http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-23-131318-300x170.png)
 
 ## 相关链接
 
 需要的虚拟机本地开发环境：[百度网盘](https://pan.baidu.com/s/1_XBMvXLcBkARtYcUDLemZw?pwd=u5e8)
 源代码仓库地址：[Gitee](https://gitee.com/380014953/hitch)
+
+## 持续更新中
