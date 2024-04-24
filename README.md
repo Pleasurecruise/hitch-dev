@@ -22,9 +22,9 @@
 
 ## 效果展示
 
-![修改密码](http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-24-114602-170x300.png)
+![修改密码](https://img-blog.csdnimg.cn/direct/1c28541f8c6e481b92646df67b6f5d1b.png)
 
-![车牌智能识别](http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-23-131318-300x170.png)
+![车牌智能识别](https://img-blog.csdnimg.cn/direct/90645c8f6e554773941edec1242849e6.png)
 
 ## 相关链接
 
