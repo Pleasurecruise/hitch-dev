@@ -1,54 +1,32 @@
-# 黑马顺风车
+# 一个简单的拼车系统
 
-## 测试环境接口：
+## 仓库简介
 
-###  服务网关： 
+项目源码来自于黑马线上实习的Java开发岗同城拼车系统
+在“实习”期间，需要补充原项目缺失的代码
+本仓库为作者在“实习”期间自主补充完缺失的代码，可以正常运行
 
- http://116.62.213.90:10010
+主要是后端代码，用的是SpringBoot语言
+仓库中附带有**开发文档**，是一个非常好的练手的项目
 
-###  注册中心： 
+## 项目介绍
 
- http://116.62.213.90:10011/nacos
+黑马顺风车,是一款即时打车类软件。
 
-###  harbor
- https://manager-hongbaoyu-java.itheima.net:8443/harbor/projects
- 
+项目中通过匹配两端车主和乘客的路线,解决乘客顺路出行搭车的需求，能够有效节约能源，解决城市拥堵问题。
 
+优势一：使用主流框架完成业务开发项目基于主流Springcloud技术栈,实现完整的服务注册,网关控制,微服务化等业务开发
+优势二：三方服务接口对接实际场景基于百度地图，有效解决位置计算、路径计算，实现打车类业务场景
+优势三：位置信息相关的业务与技术实现基于Redis实现GEO坐标计算，精准计算距离，能够适配移动互联网位置需求
+优势四：经典超时场景的解决方案基于消息队列，完成消息的超时操作，该方案可通用于订单、未读消息等超时场景
 
-###  行程中心-12： 
+## 效果展示
 
- http://116.62.213.90:10012/stroke/doc.html#/home
+(http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-24-114602-170x300.png)
 
-###  存储中心-1： 
+(http://blog.yiming1234.cn/wp-content/uploads/2024/04/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE-2024-04-23-131318-300x170.png)
 
- http://116.62.213.90:10013/storage/doc.html#/home
+## 相关链接
 
-###  支付中心-9： 
-
- http://116.62.213.90:10014/payment/doc.html#/home
-
-###  订单中心-4： 
-
- http://116.62.213.90:10015/order/doc.html#/home
-
-###  消息中心-1： 
-
- http://116.62.213.90:10016/notice/doc.html#/home
-
-###  用户中心-12： 
-
- http://116.62.213.90:10017/account/doc.html#/home
-
-## total:
-
-### 接口:
-
-39
-
-### 代码:
-
-顺风车
-added lines: 33070, removed lines: 10804, total lines: 22266
-
-total with opencv demo
-added lines: 478179, removed lines: 10814, total lines: 467365
+需要的虚拟机本地开发环境：[百度网盘](https://pan.baidu.com/s/1_XBMvXLcBkARtYcUDLemZw?pwd=u5e8)
+源代码仓库地址：[Gitee](https://gitee.com/380014953/hitch)
