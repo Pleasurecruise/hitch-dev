@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+
 @Component
 public class StrokeHandler {
 
@@ -403,19 +404,44 @@ public class StrokeHandler {
         orderPO.setId(CommonsUtils.getWorkerID());//雪花算法主键序列
         orderPO.setStatus(0);//初始状态：未支付
         //TODO:任务3.1-生成订单-3day
-
         //注意传入的两个参数，包含了下面想要的信息：
-
         //3.1 给orderPo设置基本的乘客、车主、行程信息
-
+        orderPO.setPassengerId(invitee.getPublisherId()); // 乘客ID
+        orderPO.setPassengerStrokeId(invitee.getId()); // 乘客行程ID
+        orderPO.setDriverId(inviter.getPublisherId()); // 司机ID
+        orderPO.setDriverStrokeId(inviter.getId()); // 司机行程ID
+        orderPO.setCreatedTime(new Date());//创建时间
+        orderPO.setUpdatedTime(new Date());//更新时间
         //3.2 对接百度路径计算，给orderPo设置路径长度distance、估计时间duration
         //对接文档：https://lbs.baidu.com/faq/api?title=webapi/routchtout-drive
+        String origin =invitee.getStartGeoLat()+","+ invitee.getStartGeoLng();
+        String destination = invitee.getEndGeoLat()+","+ invitee.getEndGeoLng();
 
+        RoutePlanResultBO routePlanResultB0 = baiduMapClient.pathPlanning(destination,origin);
+        orderPO.setDistance(routePlanResultB0.getDuration().getValue());
+        orderPO.setEstimatedTime(routePlanResultB0.getDuration().getValue());
         //3.3 完成计费功能，给orderPo设置金额
         //计费规则：3公里以内起步价13元；3公里以上2.3元/公里；燃油附加费1次收取1元
         //建议：使用装饰着模式来完成
+        //输出行程,单位千米
+        int distance = routePlanResultB0.getDistance().getValue()/1000;
+        //输出预估时间
+        Integer duration = routePlanResultB0.getDuration().getValue();
+        orderPO.setDistance(distance);
+        orderPO.setEstimatedTime(duration);
 
-
+        //计算价格
+        Valuation basicValuation = new BasicValuation(null);
+        Valuation fuelValuation = new Valuation.FuelValuation(basicValuation);
+        Valuation extraPriceValuation = new Valuation.ExtraPriceValuation(fuelValuation);
+        Valuation totalValuation = new Valuation.TotalValuation(basicValuation, fuelValuation, extraPriceValuation);
+        // 计算价格
+        float cost = totalValuation.calculation(distance);
+        // 四舍五入到两位小数
+        cost = Math.round(cost * 100.0f) / 100.0f;
+        // 设置价格
+        orderPO.setCost(cost);
+        // 保存订单
         orderAPIService.add(orderPO);
     }
 
