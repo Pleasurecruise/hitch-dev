@@ -26,6 +26,8 @@
 
 ![车牌智能识别](https://img-blog.csdnimg.cn/direct/90645c8f6e554773941edec1242849e6.png)
 
+![行程计费](https://img-blog.csdnimg.cn/direct/56b57d7a65e340ceb3e322e77b84f737.png)
+
 ## 相关链接
 
 需要的虚拟机本地开发环境：[百度网盘](https://pan.baidu.com/s/1_XBMvXLcBkARtYcUDLemZw?pwd=u5e8)
