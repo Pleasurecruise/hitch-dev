@@ -23,7 +23,7 @@ public class BaiduMapClient {
     /*@Value("${baidu.map.api}")
     private String api;
     @Value("${baidu.map.ak}")
-    private String ak;*/
+    private String ak;**/
     private String api = "https://api.map.baidu.com/routematrix/v2/driving?";
     private String ak = "S2BtxOhERHMliIH4YCEmLiypCLSJtJyq";
     private final static Logger logger = LoggerFactory.getLogger(BaiduMapClient.class);
