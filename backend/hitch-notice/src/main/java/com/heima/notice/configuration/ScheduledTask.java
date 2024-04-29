@@ -15,6 +15,7 @@ import javax.websocket.Session;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,12 +40,25 @@ public class ScheduledTask {
         //定时调度，获取mongodb里的未读消息，推送给对应用户
         executorService.scheduleAtFixedRate(() -> {
             //获取所有在线的用户accountId，提示：WebSocketServer里有用户链接的池子
-
+            Map<String, Session> sessionPools = WebSocketServer.sessionPools;
+            logger.info("sessionPools:{}", sessionPools);
+            List<String> accountIdList = new ArrayList<>();
+            for (String key : sessionPools.keySet()) {
+                accountIdList.add(key);
+            }
             //在MongoDB中获取需要推送的消息，noticeService里的方法研究一下，可以帮到你
-
+            List<NoticePO> noticeByAccountId = noticeService.getNoticeByAccountIds(accountIdList);
             //遍历所有消息，逐个发送消息到浏览器
             //方法：session.getBasicRemote().sendText(json);
-
+            for (NoticePO noticePO : noticeByAccountId) {
+                Session session = sessionPools.get(noticePO.getReceiverId());
+                String json = JSON.toJSONString(noticePO);
+                try {
+                    session.getBasicRemote().sendText(json);
+                } catch (IOException e) {
+                    throw new RuntimeException("消息推送失败");
+                }
+            }
         }, 0,1 , TimeUnit.SECONDS);
     }
 

@@ -2,19 +2,23 @@ package com.heima.notice.socket;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.heima.commons.constant.HtichConstants;
 import com.heima.commons.domin.vo.response.ResponseVO;
 import com.heima.commons.entity.SessionContext;
 import com.heima.commons.enums.BusinessErrors;
 import com.heima.commons.helper.RedisSessionHelper;
 import com.heima.commons.utils.SpringUtil;
+import com.heima.modules.po.StrokePO;
 import com.heima.modules.vo.NoticeVO;
 import com.heima.notice.handler.NoticeHandler;
+import com.heima.notice.service.StrokeAPIService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +29,33 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint(value = "/ws/socket")
 public class WebSocketServer {
-
     //Websocket用户链接池
     //concurrent包的线程安全Map，用来存放每个客户端对应的WebSocketServer对象。
     //key是accountId，可以通过本类中的getAccountId方法获取到，value是session
     public final static Map<String, Session> sessionPools = new ConcurrentHashMap<>();
-
     /*
         用户发送ws消息，message为json格式{'receiverId':'接收人','tripId':'行程id','message':'消息内容'}
     */
     @OnMessage
     public void onMessage(Session session, String message) {
         String accountId = getAccountId(session);
-
-
+        //
+        JSONObject jsonObject = JSON.parseObject(message);
+        String tripId = jsonObject.getString("tripId");
+        String messageContent = jsonObject.getString("message");
+        //
+        StrokeAPIService strokeAPIService = SpringUtil.getBean(StrokeAPIService.class);
+        StrokePO strokePO = strokeAPIService.selectByID(tripId);
+        String receiverId = strokePO.getPublisherId();
         //设置相关消息内容并存入mongodb：noticeHandler.saveNotice(noticeVO);
-
-
+        NoticeVO noticeVO = new NoticeVO();
+        noticeVO.setSenderId(accountId);
+        noticeVO.setReceiverId(receiverId);
+        noticeVO.setTripId(tripId);
+        noticeVO.setMessage(messageContent);
+        NoticeHandler noticeHandler = SpringUtil.getBean(NoticeHandler.class);
+        noticeHandler.saveNotice(noticeVO);
     }
-
 
     /**
      * 连接建立成功调用
