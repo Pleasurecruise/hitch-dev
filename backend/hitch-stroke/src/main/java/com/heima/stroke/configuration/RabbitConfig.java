@@ -36,8 +36,6 @@ public class RabbitConfig {
     //行程死信交换器 ROUTINGKEY
     public static final String STROKE_DEAD_KEY = "STROKE_DEAD_KEY";
 
-
-
     /**
      * 声明行程超时队列
      *
@@ -47,16 +45,13 @@ public class RabbitConfig {
     public Queue strokeOverQueue() {
         //【重要配置】超时队列配置，死信队列的绑定在该方法中实现
         //需要用到以下属性：
-
-        // x-dead-letter-exchange    这里声明当前队列绑定的死信交换机
-
-        // x-dead-letter-routing-key  这里声明当前队列的死信路由key
-
-        // x-message-ttl  声明队列的TTL
-
-        return null;
+        Queue queue = QueueBuilder.durable(STROKE_OVER_QUEUE)
+                .deadLetterExchange(STROKE_DEAD_QUEUE_EXCHANGE) // x-dead-letter-exchange    这里声明当前队列绑定的死信交换机
+                .deadLetterRoutingKey(STROKE_DEAD_KEY) // x-dead-letter-routing-key  这里声明当前队列的死信路由key
+                .ttl((int) DELAY_TIME)// x-message-ttl  声明队列的TTL
+                .build();
+        return queue;
     }
-
 
     /**
      * 声明行程死信队列
@@ -65,7 +60,7 @@ public class RabbitConfig {
      */
     @Bean
     public Queue strokeDeadQueue() {
-        return null;
+        return QueueBuilder.durable(STROKE_DEAD_QUEUE).build();
     }
 
     /**
@@ -75,7 +70,8 @@ public class RabbitConfig {
      */
     @Bean
     DirectExchange strokeOverQueueExchange() {
-        return null;
+
+        return new DirectExchange(STROKE_OVER_QUEUE_EXCHANGE);
     }
 
     /**
@@ -85,10 +81,8 @@ public class RabbitConfig {
      */
     @Bean
     DirectExchange strokeDeadQueueExchange() {
-        return null;
+        return new DirectExchange(STROKE_DEAD_QUEUE_EXCHANGE);
     }
-
-
 
     /**
      * 行程超时队列绑定
@@ -97,7 +91,7 @@ public class RabbitConfig {
      */
     @Bean
     Binding bindingStrokeOverDirect() {
-        return null;
+        return BindingBuilder.bind(strokeOverQueue()).to(strokeOverQueueExchange()).with(STROKE_OVER_KEY);
     }
 
     /**
@@ -107,9 +101,6 @@ public class RabbitConfig {
      */
     @Bean
     Binding bindingStrokeDeadDirect() {
-        return null;
+        return BindingBuilder.bind(strokeDeadQueue()).to(strokeDeadQueueExchange()).with(STROKE_DEAD_KEY);
     }
-
-
-
 }
