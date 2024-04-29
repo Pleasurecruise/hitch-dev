@@ -18,24 +18,18 @@ public class RabbitConfig {
      * 延迟时间 单位毫秒
      */
     private static final long DELAY_TIME = 1000 * 30;
-
-
     //行程超时队列
     public static final String STROKE_OVER_QUEUE = "STROKE_OVER_QUEUE";
     //行程死信队列
     public static final String STROKE_DEAD_QUEUE = "STROKE_DEAD_QUEUE";
-
     //行程超时队列交换器
     public static final String STROKE_OVER_QUEUE_EXCHANGE = "STROKE_OVER_QUEUE_EXCHANGE";
-
     //行程死信队列交换器
     public static final String STROKE_DEAD_QUEUE_EXCHANGE = "STROKE_DEAD_QUEUE_EXCHANGE";
     //行程超时交换器 ROUTINGKEY
     public static final String STROKE_OVER_KEY = "STROKE_OVER_KEY";
-
     //行程死信交换器 ROUTINGKEY
     public static final String STROKE_DEAD_KEY = "STROKE_DEAD_KEY";
-
     /**
      * 声明行程超时队列
      *
@@ -52,7 +46,6 @@ public class RabbitConfig {
                 .build();
         return queue;
     }
-
     /**
      * 声明行程死信队列
      *
@@ -62,7 +55,6 @@ public class RabbitConfig {
     public Queue strokeDeadQueue() {
         return QueueBuilder.durable(STROKE_DEAD_QUEUE).build();
     }
-
     /**
      * 创建行程超时队列交换器
      *
@@ -70,10 +62,8 @@ public class RabbitConfig {
      */
     @Bean
     DirectExchange strokeOverQueueExchange() {
-
         return new DirectExchange(STROKE_OVER_QUEUE_EXCHANGE);
     }
-
     /**
      * 创建行程死信队列交换器
      *
@@ -83,7 +73,6 @@ public class RabbitConfig {
     DirectExchange strokeDeadQueueExchange() {
         return new DirectExchange(STROKE_DEAD_QUEUE_EXCHANGE);
     }
-
     /**
      * 行程超时队列绑定
      *
@@ -93,7 +82,6 @@ public class RabbitConfig {
     Binding bindingStrokeOverDirect() {
         return BindingBuilder.bind(strokeOverQueue()).to(strokeOverQueueExchange()).with(STROKE_OVER_KEY);
     }
-
     /**
      * 行程死信队列绑定
      *
