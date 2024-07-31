@@ -22,11 +22,11 @@
 
 ## 效果展示
 
-![修改密码](https://img-blog.csdnimg.cn/direct/1c28541f8c6e481b92646df67b6f5d1b.png)
+![修改密码](https://github.com/user-attachments/assets/bda0e5ed-d6f9-434b-b650-b240065dc2b4)
 
-![车牌智能识别](https://img-blog.csdnimg.cn/direct/90645c8f6e554773941edec1242849e6.png)
+![车牌智能识别](https://github.com/user-attachments/assets/f3b63293-51b6-4d72-9224-d44038aa68c1)
 
-![行程计费](https://img-blog.csdnimg.cn/direct/56b57d7a65e340ceb3e322e77b84f737.png)
+![行程计费](https://github.com/user-attachments/assets/a0071afc-d604-40cb-8e03-97c04fd67eb3)
 
 ## 相关链接
 
